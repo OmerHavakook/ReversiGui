@@ -1,55 +1,95 @@
 package application;
 
-import java.awt.Menu;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 public class ReversiGameController implements Initializable {
     @FXML
     private HBox hBoxRoot;
-    private Board board = new Board(8);
+    @FXML
+    private VBox child = new VBox();
+    private Board board;
     private GuiBoard guiBoard;
-    private GuiPlayer p1 = new GuiPlayer('X');
-    private GuiPlayer p2 = new GuiPlayer('O');
+    private GuiPlayer p1;
+    private GuiPlayer p2;
 
-    private GuiMenu guiMenu;
+    @FXML
+    private Text CurrentPlayerStr = new Text();
+    @FXML
+    private Text firstPlayerScore = new Text();
+    @FXML
+    private Text secondPlayerScore = new Text();
+
+    // private GuiGameProgress guiMenu;
     private GameLogic logic;
+
+    public GameLogic getLogic() {
+        return logic;
+    }
+
+    /*
+     * public GuiGameProgress getGuiMenu() { return guiMenu; }
+     */
+
+    private BuildSettings settings;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        settings = BuildSettings.getInstance();
+        settings.loadFromFile();
+        int size = settings.getSize();
+        char begginer = settings.getBeginner();
+        char last = settings.getLast();
+        String fColor = settings.getfName();
+        String sColor = settings.getSName();
+        this.board = new Board(size);
+        this.p1 = new GuiPlayer(begginer, sColor);
+        this.p2 = new GuiPlayer(last, fColor);
+        if ('X' == begginer) {
+            this.p1 = new GuiPlayer(begginer, fColor);
+            this.p2 = new GuiPlayer(last, sColor);
+        }
         guiBoard = new GuiBoard(board, p1, p2);
         guiBoard.setPrefWidth(400);
         guiBoard.setPrefHeight(400);
         hBoxRoot.getChildren().add(0, guiBoard);
-        guiBoard.draw();
-        this.logic = new GameLogic(p1, p2, board.getSize(), 'X');
-        guiMenu = new GuiMenu();
-        guiMenu.setPrefWidth(200);
-        guiMenu.setPrefHeight(400);
-        hBoxRoot.getChildren().add(guiMenu);
-        guiMenu.draw('X', 2, 2);
+        guiBoard.setGameFlow(new GameFlow(guiBoard, this));
+        System.out.println(begginer);
+        this.logic = new GameLogic(p1, p2, board.getSize(), begginer);
+        guiBoard.draw(logic.findPossibleCells(this.board, begginer));
+        draw(p1.getColor(), 2, 2);
+        /*
+         * guiMenu = new GuiGameProgress(); guiMenu.setPrefWidth(200);
+         * guiMenu.setPrefHeight(400); hBoxRoot.getChildren().add(guiMenu);
+         * guiMenu.draw(p1.getColor(), 2, 2);
+         */
     }
 
-    public void runGame() {
-        while (!logic.checksIfGameOver(board)) {
-            char currentType = logic.getCurrent_Player_().getType();
-            if (logic.checksIfMovesArePossible(currentType, board)) {
-                List<Point> possiblePoints = logic.findPossibleCells(board, currentType);
-                Point userChoice = this.guiBoard.chooseMove(possiblePoints);
-                logic.updateBoard(userChoice.getX(), userChoice.getY(), currentType, board);
-                guiBoard.setBoard(board);
-                guiBoard.draw();
-                guiMenu.draw(currentType, logic.getPlayer1Score(), logic.getPlayer2Score());
-                
-            } else {
-                System.out.println("No possible moves\n");
-            }
-            logic.changePlayer();
-        }
+    /*
+     * public void draw(String currentType, int firstScore, int secondScore) {
+     * //this.getChildren().clear(); CurrentPlayerStr.setText("Current Player: "
+     * + currentType); firstPlayerScore.setText("First Player Score: " +
+     * firstScore); secondPlayerScore.setText("Second Player Score: " +
+     * secondScore);
+     * //this.getChildren().addAll(CurrentPlayerStr,firstPlayerScore,
+     * secondPlayerScore); }
+     */
+
+    public void draw(String color, int player1Score, int player2Score) {
+        // TODO Auto-generated method stub
+        child.getChildren().removeAll(CurrentPlayerStr, firstPlayerScore, secondPlayerScore);
+        CurrentPlayerStr.setText("  Current Player: " + color + "\n\n");
+
+        firstPlayerScore.setText("  First Player Score: " + player1Score + "\n\n");
+        secondPlayerScore.setText("  Second Player Score: " + player2Score);
+        child.getChildren().addAll(CurrentPlayerStr, firstPlayerScore, secondPlayerScore);
+
     }
+
 }

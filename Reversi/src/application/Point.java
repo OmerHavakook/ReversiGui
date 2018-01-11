@@ -69,4 +69,9 @@ public class Point {
     public void setY(int y1) {
         this.y = y1;
     }
+
+    @Override
+    public String toString() {
+        return "(" + this.x + "," + this.y + ")" + "\n";
+    }
 }

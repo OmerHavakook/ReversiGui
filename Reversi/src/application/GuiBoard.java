@@ -8,9 +8,6 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 
 public class GuiBoard extends GridPane {
     private Board board;
@@ -19,23 +16,54 @@ public class GuiBoard extends GridPane {
     private GuiPlayer secondPlayer;
     private FXMLLoader fxmlLoader;
     public static Point p;
+    private Image cellR;
+    private Image cellBolt;
+    private GameFlow gameFlow;
+
+
+    public GameFlow getGameFlow() {
+        return gameFlow;
+    }
+
+    public void setGameFlow(GameFlow gameFlow) {
+        this.gameFlow = gameFlow;
+    }
 
     public GuiBoard(Board b, GuiPlayer p1, GuiPlayer p2) {
         this.board = b;
         this.firstPlayer = p1;
         this.secondPlayer = p2;
         this.imgBoard = new ImageView[b.getSize()][b.getSize()];
+        for (int i = 0; i < b.getSize(); i++) {
+            for (int j = 0; j < b.getSize(); j++) {
+                imgBoard[i][j] = new ImageView();
+                imgBoard[i][j].setOnMouseClicked(event -> {
+                    Node source = (Node) event.getSource();
+                    Integer colIndex = GridPane.getColumnIndex(source);
+                    Integer rowIndex = GridPane.getRowIndex(source);
+                    Point clickedPoint = new Point(rowIndex, colIndex);
+
+                    gameFlow.runGame(clickedPoint);
+                });
+            }
+        }
+        this.cellR = new Image(getClass().getClassLoader().getResourceAsStream("Cell.jpg"));
+        this.cellBolt = new Image(getClass().getClassLoader().getResourceAsStream("boltCell.png"));
         fxmlLoader = new FXMLLoader(getClass().getResource("GuiBoard.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
     }
 
+    public Board getBoard() {
+        return board;
+    }
+
     public void setBoard(Board board) {
         this.board = board;
     }
 
-    public void draw() {
+    public void draw(List<Point> list) {
         this.getChildren().clear();
         int boardSize = board.getSize();
         int height = (int) this.getPrefHeight();
@@ -51,15 +79,25 @@ public class GuiBoard extends GridPane {
             for (int j = 0; j < boardSize; j++) {
                 type = board.returnCellType(i, j);
                 if (type == firstType) {
-                    imgBoard[i][j].setImage(new Image(getClass().getClassLoader().getResourceAsStream("minion.jpg")));
-                    this.add(new Circle(10, Paint.valueOf("black")), j, i);
+                    imgBoard[i][j].setImage(firstPlayer.getIv());
+                    // this.add(new Circle(10, Paint.valueOf("black")), j, i);
+                    this.add(imgBoard[i][j], j, i);
 
                 } else if (type == secondType) {
-                    imgBoard[i][j].setImage(new Image(getClass().getClassLoader().getResourceAsStream("minion2.jpg")));
-                    this.add(new Circle(10, Paint.valueOf("orange")), j, i);
-
+                    imgBoard[i][j].setImage(secondPlayer.getIv());
+                    // this.add(new Circle(10, Paint.valueOf("orange")), j, i);
+                    this.add(imgBoard[i][j], j, i);
                 } else {
-                    imgBoard[i][j].setImage(new Image(getClass().getClassLoader().getResourceAsStream("/application/res/minion.jpg")));
+                    boolean bolt = false;
+                    for (int t = 0; t < list.size(); t++) {
+                        if (list.get(t).getX() == i && list.get(t).getY() == j) {
+                            imgBoard[i][j].setImage(cellBolt);
+                            bolt = true;
+                        }
+                    }
+                    if (!bolt) {
+                        imgBoard[i][j].setImage(cellR);
+                    }
                     this.add(imgBoard[i][j], j, i);
                 }
                 imgBoard[i][j].setFitWidth(cellWidth);
@@ -115,6 +153,7 @@ public class GuiBoard extends GridPane {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
         return p;
     }
 }

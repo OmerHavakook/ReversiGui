@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class GuiMenu extends VBox {
+public class GuiGameProgress extends VBox {
     private FXMLLoader fxmlLoader;
     @FXML
     private Text CurrentPlayerStr;
@@ -13,7 +13,7 @@ public class GuiMenu extends VBox {
     private Text firstPlayerScore;
     @FXML
     private Text secondPlayerScore;
-    public GuiMenu(){
+    public GuiGameProgress(){
         CurrentPlayerStr = new Text();
         firstPlayerScore = new Text();
         secondPlayerScore = new Text();
@@ -22,9 +22,8 @@ public class GuiMenu extends VBox {
         fxmlLoader.setController(this);
     }
     
-    public void draw(char currentType,int firstScore,int secondScore){
+    public void draw(String currentType, int firstScore, int secondScore) {
         this.getChildren().clear();
-        
         CurrentPlayerStr.setText("Current Player: " + currentType);
         firstPlayerScore.setText("First Player Score: " + firstScore);
         secondPlayerScore.setText("Second Player Score: " + secondScore);

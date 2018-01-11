@@ -1,25 +1,36 @@
 package application;
 
-import java.io.InputStream;
-
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 public class GuiPlayer{
     private char type;
     private int score;
+    private String color;
     private Image iv;
-    public GuiPlayer(char type) {
+
+    public GuiPlayer(char type, String color) {
+        this.color = color;
         this.type = type;
         this.score = 2;
-        if (type == 'O'){
-            iv = new Image(getClass().getClassLoader().getResourceAsStream("minion.jpg"));
-            
-        } else {
-            InputStream input = getClass().getClassLoader().getResourceAsStream("minion.jpg");
-            iv = new Image(input);
+        switch (color) {
+        case "yellow":
+            iv = new Image(getClass().getClassLoader().getResourceAsStream("yellowCell.png"));
+            break;
+        case "blue":
+            iv = new Image(getClass().getClassLoader().getResourceAsStream("blueCell.png"));
+            break;
+        case "white":
+            iv = new Image(getClass().getClassLoader().getResourceAsStream("whiteCell.png"));
+            break;
+        default:
+            iv = new Image(getClass().getClassLoader().getResourceAsStream("blackCell.png"));
+            break;
         }
         
+    }
+
+    public String getColor() {
+        return color;
     }
 
     public Image getIv() {
