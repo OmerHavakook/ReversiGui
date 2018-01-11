@@ -13,7 +13,7 @@
 		<Cursor fx:constant="E_RESIZE" />
 	</cursor>
 	<children>
-		<VBox fx:id="child" prefHeight="390.0" prefWidth="185.0" />
+		<VBox prefHeight="390.0" prefWidth="456.0" />
 	</children>
 	<padding>
 		<Insets left="20.0" top="10.0" />

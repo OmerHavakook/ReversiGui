@@ -14,16 +14,16 @@ public class GuiPlayer{
         this.score = 2;
         switch (color) {
         case "yellow":
-            iv = new Image(getClass().getClassLoader().getResourceAsStream("yellowCell.png"));
+            iv = new Image(getClass().getClassLoader().getResourceAsStream("images/yellowCell.png"));
             break;
         case "blue":
-            iv = new Image(getClass().getClassLoader().getResourceAsStream("blueCell.png"));
+            iv = new Image(getClass().getClassLoader().getResourceAsStream("images/blueCell.png"));
             break;
         case "white":
-            iv = new Image(getClass().getClassLoader().getResourceAsStream("whiteCell.png"));
+            iv = new Image(getClass().getClassLoader().getResourceAsStream("images/whiteCell.png"));
             break;
         default:
-            iv = new Image(getClass().getClassLoader().getResourceAsStream("blackCell.png"));
+            iv = new Image(getClass().getClassLoader().getResourceAsStream("images/blackCell.png"));
             break;
         }
         

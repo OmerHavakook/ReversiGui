@@ -64,22 +64,8 @@ public class ReversiGameController implements Initializable {
         this.logic = new GameLogic(p1, p2, board.getSize(), begginer);
         guiBoard.draw(logic.findPossibleCells(this.board, begginer));
         draw(p1.getColor(), 2, 2);
-        /*
-         * guiMenu = new GuiGameProgress(); guiMenu.setPrefWidth(200);
-         * guiMenu.setPrefHeight(400); hBoxRoot.getChildren().add(guiMenu);
-         * guiMenu.draw(p1.getColor(), 2, 2);
-         */
     }
 
-    /*
-     * public void draw(String currentType, int firstScore, int secondScore) {
-     * //this.getChildren().clear(); CurrentPlayerStr.setText("Current Player: "
-     * + currentType); firstPlayerScore.setText("First Player Score: " +
-     * firstScore); secondPlayerScore.setText("Second Player Score: " +
-     * secondScore);
-     * //this.getChildren().addAll(CurrentPlayerStr,firstPlayerScore,
-     * secondPlayerScore); }
-     */
 
     public void draw(String color, int player1Score, int player2Score) {
         // TODO Auto-generated method stub

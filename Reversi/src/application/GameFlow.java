@@ -11,7 +11,6 @@ public class GameFlow {
 
     public GameFlow(GuiBoard gb, ReversiGameController controller) {
         this.guiB = gb;
-
         this.gameController = controller;
     }
 

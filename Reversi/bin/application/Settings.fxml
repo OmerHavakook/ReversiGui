@@ -27,6 +27,6 @@
 		<ChoiceBox fx:id="firstPlayerChoose" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 		<ChoiceBox fx:id="firstShape" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 		<ChoiceBox fx:id="secondShape" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-		<Button fx:id="saveBtn" mnemonicParsing="false" onAction="#addChosen" text="continue" GridPane.rowIndex="4" />
+		<Button mnemonicParsing="false" onAction="#addChosen" text="continue" GridPane.rowIndex="4" />
 	</children>
 </GridPane>
