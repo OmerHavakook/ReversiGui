@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-image: url(&quot;images/background.jpg&quot;); -fx-background-size: cover;;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MenuController">
+   <children>
+      <ImageView fx:id="startB" fitHeight="72.0" fitWidth="300.0" layoutX="258.0" layoutY="339.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/singleBtn.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="settingsBtn" fitHeight="85.0" fitWidth="300.0" layoutX="258.0" layoutY="419.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/optionBtn.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="exitBtn" fitHeight="72.0" fitWidth="169.0" layoutX="334.0" layoutY="498.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/exitBtn.jpg" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

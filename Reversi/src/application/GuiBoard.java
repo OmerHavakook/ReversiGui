@@ -48,7 +48,7 @@ public class GuiBoard extends GridPane {
             }
         }
         this.cellR = new Image(getClass().getClassLoader().getResourceAsStream("images/Cell.jpg"));
-        this.cellBolt = new Image(getClass().getClassLoader().getResourceAsStream("images/boltCell.png"));
+        this.cellBolt = new Image(getClass().getClassLoader().getResourceAsStream("images/boltCell.jpg"));
         fxmlLoader = new FXMLLoader(getClass().getResource("GuiBoard.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);

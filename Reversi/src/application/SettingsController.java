@@ -9,12 +9,14 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class SettingsController implements Initializable {
@@ -26,19 +28,24 @@ public class SettingsController implements Initializable {
     private ChoiceBox<String> firstShape;
     @FXML
     private ChoiceBox<String> secondShape;
-    
-    @FXML
-    private Button saveBtn;
 
     private BuildSettings settings;
-
+    @FXML
+    private ImageView backBtn;
+    
+    
     ObservableList<Integer> sizes = FXCollections.observableArrayList(4, 6, 8, 10, 12, 14, 16, 18, 20);
     ObservableList<Character> players = FXCollections.observableArrayList('X', 'O');
     ObservableList<String> firstColors = FXCollections.observableArrayList("yellow", "blue", "white", "black");
     ObservableList<String> secondColors = FXCollections.observableArrayList("yellow", "blue", "white", "black");
+    
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        backBtn.setOnMouseClicked((event) -> {
+            addChosen();
+            backToMenu();
+        });
         size.setItems(sizes);
         firstPlayerChoose.setItems(players);
         firstShape.setItems(firstColors);
@@ -46,13 +53,12 @@ public class SettingsController implements Initializable {
         settings = BuildSettings.getInstance();
     }
 
-    public void backToGame() {
-
+    public void backToMenu() {
         Parent root;
         try {
-            root = FXMLLoader.load(getClass().getResource("/application/ReversiGame.fxml"));
-            Scene scene = new Scene(root, 600, 600);
-            Stage s = (Stage) saveBtn.sceneProperty().get().getWindow();
+            root = FXMLLoader.load(getClass().getResource("MenuFXML.fxml"));
+            Scene scene = new Scene(root, 800, 600);
+            Stage s = (Stage) backBtn.sceneProperty().get().getWindow();
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             s.setScene(scene);
         } catch (IOException e) {
@@ -62,7 +68,6 @@ public class SettingsController implements Initializable {
 
     }
 
-    @FXML
     public void addChosen() {
         Integer boardSize = size.getValue();
         Character firstPlayer = firstPlayerChoose.getValue();
@@ -80,6 +85,6 @@ public class SettingsController implements Initializable {
         settings.setfName(firstImage);
         settings.setSName(secondImage);
         settings.saveToFile();
-        backToGame();
+        backToMenu();
     }
 }

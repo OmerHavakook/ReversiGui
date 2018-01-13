@@ -5,26 +5,41 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class ReversiGameController implements Initializable {
-    @FXML
+ /*   @FXML
     private HBox hBoxRoot;
     @FXML
-    private VBox child = new VBox();
+    private VBox child = new VBox();*/
+    
+    @FXML
+    private StackPane bRoot;
+    @FXML
+    private AnchorPane progressRoot;
+    @FXML
+    private Text curP;
+    @FXML
+    private Text p1Score;
+    @FXML
+    private Text p2Score;
+    
     private Board board;
     private GuiBoard guiBoard;
     private GuiPlayer p1;
     private GuiPlayer p2;
 
-    @FXML
+   /* @FXML
     private Text CurrentPlayerStr = new Text();
     @FXML
     private Text firstPlayerScore = new Text();
     @FXML
-    private Text secondPlayerScore = new Text();
+    private Text secondPlayerScore = new Text();*/
 
     // private GuiGameProgress guiMenu;
     private GameLogic logic;
@@ -58,7 +73,8 @@ public class ReversiGameController implements Initializable {
         guiBoard = new GuiBoard(board, p1, p2);
         guiBoard.setPrefWidth(400);
         guiBoard.setPrefHeight(400);
-        hBoxRoot.getChildren().add(0, guiBoard);
+        bRoot.getChildren().add(guiBoard);
+        StackPane.setAlignment(guiBoard, Pos.CENTER);
         guiBoard.setGameFlow(new GameFlow(guiBoard, this));
         System.out.println(begginer);
         this.logic = new GameLogic(p1, p2, board.getSize(), begginer);
@@ -67,15 +83,10 @@ public class ReversiGameController implements Initializable {
     }
 
 
-    public void draw(String color, int player1Score, int player2Score) {
-        // TODO Auto-generated method stub
-        child.getChildren().removeAll(CurrentPlayerStr, firstPlayerScore, secondPlayerScore);
-        CurrentPlayerStr.setText("  Current Player: " + color + "\n\n");
-
-        firstPlayerScore.setText("  First Player Score: " + player1Score + "\n\n");
-        secondPlayerScore.setText("  Second Player Score: " + player2Score);
-        child.getChildren().addAll(CurrentPlayerStr, firstPlayerScore, secondPlayerScore);
-
+    public void draw(String color, int player1Score, int player2Score) {    
+        curP.setText("  Current Player: " + color + "\n\n");
+        p1Score.setText("  First Player Score: " + player1Score + "\n\n");
+        p2Score.setText("  Second Player Score: " + player2Score);
     }
 
 }

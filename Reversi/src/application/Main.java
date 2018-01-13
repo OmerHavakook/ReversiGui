@@ -11,10 +11,11 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-            Parent root = FXMLLoader.load(getClass().getResource("Settings.fxml"));
+		    Parent root = FXMLLoader.load(getClass().getResource("MenuFXML.fxml"));
+           // Parent root = FXMLLoader.load(getClass().getResource("Settings.fxml"));
             // HBox root =
             // (HBox)FXMLLoader.load(getClass().getResource("/application/ReversiGame.fxml"));
-            Scene scene = new Scene(root, 600, 600);
+            Scene scene = new Scene(root, 800, 600);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();
