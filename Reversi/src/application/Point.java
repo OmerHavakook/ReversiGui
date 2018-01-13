@@ -1,33 +1,24 @@
 package application;
 
-/**
- * A Point class.
- *
- * @author Omer Havakook <darhavakook@gmail.com>
- */
 public class Point {
 
     private int x;
     private int y;
 
     /**
-     * Construct a point given x and y coordinates.
-     *
-     * @param x
-     *            the x coordinate.
-     * @param y
-     *            the y coordinate.
+     * constructor
+     * @param x - the x coordinate
+     * @param y - the y coordiante
      */
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-   
     /**
-     * @param other
-     *            point to equal between two points.
-     * @return true if equals and false otherwise.
+     * this method checks if 2 points are equal by comparing there coordinates
+     * @param other - point
+     * @return true if the points are equal and false otherwise
      */
     public boolean equals(Point other) {
         if (this.x == other.x && this.y == other.y) {
@@ -52,26 +43,18 @@ public class Point {
 
     /**
      * set x member.
-     *
-     * @param x1
-     *            the x value.
+     * @param xCoordinate the x value.
      */
-    public void setX(int x1) {
-        this.x = x1;
+    public void setX(int xCoordinate) {
+        this.x = xCoordinate;
     }
 
     /**
      * set y member.
-     *
-     * @param y1
-     *            the y member.
+     * @param yCoordinate the y member.
      */
-    public void setY(int y1) {
-        this.y = y1;
+    public void setY(int yCoordinate) {
+        this.y = yCoordinate;
     }
 
-    @Override
-    public String toString() {
-        return "(" + this.x + "," + this.y + ")" + "\n";
-    }
 }

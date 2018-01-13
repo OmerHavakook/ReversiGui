@@ -15,56 +15,58 @@ import javafx.stage.Stage;
 public class MenuController implements Initializable {
 
     @FXML
-    private ImageView startB;
-    
-    @FXML
-    private ImageView settingsBtn;
+    private ImageView startButton;
 
     @FXML
-    private ImageView exitBtn;
+    private ImageView settingsButton;
+
+    @FXML
+    private ImageView exitButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        startB.setOnMouseClicked((event) -> {
+        // if the start button was clicked, than call gameSelect
+        startButton.setOnMouseClicked((event) -> {
             gameSelect();
         });
-        exitBtn.setOnMouseClicked((event) -> {
+        // if the exit button was clicked, than exit program
+        exitButton.setOnMouseClicked((event) -> {
             Platform.exit();
             System.exit(0);
         });
-        settingsBtn.setOnMouseClicked((event) -> {
+        // if settingsButton was clicked, than call optionsSelect
+        settingsButton.setOnMouseClicked((event) -> {
             optionsSelect();
         });
-
     }
 
     public void gameSelect() {
+        // try to create FXMLLoader from "ReversiGame.fxml"
         try {
             FXMLLoader settingsLoader = new FXMLLoader(getClass().getResource("ReversiGame.fxml"));
             Parent settingsParent = settingsLoader.load();
             Scene settingsScene = new Scene(settingsParent);
-            Stage theStage = (Stage) startB.getScene().getWindow();
+            Stage theStage = (Stage) startButton.getScene().getWindow();
+            // set the scene with this settingScene (the players scores)
             theStage.setScene(settingsScene);
         } catch (Exception ex) {
-            // Weird Error - if happens -> debug
-            System.out.println("ChangeSettings error:");
+            System.out.println("selectGame error:");
             ex.printStackTrace();
         }
-
     }
 
     void optionsSelect() {
+        // try to create FXMLLoader from "SettingsFXML.fxml"
         try {
             FXMLLoader settingsLoader = new FXMLLoader(getClass().getResource("SettingsFXML.fxml"));
             Parent settingsParent = settingsLoader.load();
-            Scene settingsScene = new Scene(settingsParent,800,600);
-            Stage theStage = (Stage) settingsBtn.getScene().getWindow();
+            Scene settingsScene = new Scene(settingsParent, 800, 600);
+            Stage theStage = (Stage) settingsButton.getScene().getWindow();
+            // set the scene with this settingScene (settings)
             theStage.setScene(settingsScene);
         } catch (Exception ex) {
-            // Weird Error - if happens -> debug
             System.out.println("ChangeSettings error:");
             ex.printStackTrace();
         }
     }
-
 }

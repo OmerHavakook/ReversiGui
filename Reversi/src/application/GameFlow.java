@@ -6,77 +6,121 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 public class GameFlow {
-    private GuiBoard guiB;
+    private GuiBoard guiBoard;
     private ReversiGameController gameController;
 
-    public GameFlow(GuiBoard gb, ReversiGameController controller) {
-        this.guiB = gb;
+    /**
+     * constructor
+     * @param guiBoard - GuiBoard object
+     * @param controller - ReversiGameController object
+     */
+    public GameFlow(GuiBoard guiBoard, ReversiGameController controller) {
+        this.guiBoard = guiBoard;
         this.gameController = controller;
     }
 
-    public void alert(String s) {
+    /**
+     * this method is called when an error occurred
+     * @param message - to print to the user to alert him with the error
+     */
+    public void alert(String message) {
+        // create an Alert
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Error");
-        alert.setContentText(s);
+        alert.setContentText(message);
         alert.showAndWait();
         return;
     }
 
-    public void alertGameOver(String s) {
+    /**
+     * this method is called when the game is over
+     * @param message
+     */
+    public void alertGameOver(String message) {
+        // alert the user
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("GAME OVER");
-        alert.setContentText(s);
+        alert.setContentText(message);
         alert.showAndWait();
         return;
     }
 
-    public boolean requestPoint(List<Point> points, Point p) {
+    /**
+     * this method checks if point is valid (move). This method gets the list of
+     * possible points and goes over this list and check if the requested point
+     * if in the list
+     * @param points - the list of possible points
+     * @param point - the requested point
+     * @return true if the point is valid and false otherwise
+     */
+    public boolean checkIfPointIsValid(List<Point> points, Point point) {
+        // go over the list of points
         for (int i = 0; i < points.size(); i++) {
-            if (points.get(i).equals(p)) {
+            if (points.get(i).equals(point)) {
+                // point is in the list
                 return true;
             }
-        }
+        } // send message to the user to try again
         alert("Please try again...:)");
+        // point is not in the list
         return false;
     }
 
-    public void runGame(Point p) {
+    /**
+     * this method runs the game, it's being called whenever a clicked occurred.
+     * @param clicked_point
+     */
+    public void runGame(Point clicked_point) {
+        // get the game logic from the game controller
         GameLogic logic = gameController.getLogic();
-        Board board = guiB.getBoard();
+        // get the board from the gui board
+        Board board = guiBoard.getBoard();
         char otherType;
-        char currentType = logic.getCurrent_Player_().getType();
+        // get current type
+        char currentType = logic.getCurrentPlayer().getType();
+        // if moves are possible for the current player
         if (logic.checksIfMovesArePossible(currentType, board)) {
+            // save the possible points
             List<Point> possiblePoints = logic.findPossibleCells(board, currentType);
-            if (!requestPoint(possiblePoints, p)) {
+            // check if the point is a valid move
+            if (!checkIfPointIsValid(possiblePoints, clicked_point)) {
                 return;
             }
-            otherType = logic.getOther_player_().getType();
-            logic.updateBoard(p.getX(), p.getY(), otherType, board);
-            guiB.setBoard(board);
-            guiB.draw(logic.findPossibleCells(board, otherType));
-
+            // save the other type
+            otherType = logic.getOtherPlayer().getType();
+            // update the board by the clicked point
+            logic.updateBoard(clicked_point.getX(), clicked_point.getY(), otherType, board);
+            // set the right Board obj in the gui board and draw it
+            guiBoard.setBoard(board);
+            guiBoard.draw(logic.findPossibleCells(board, otherType));
+            // check if game is over
             if (logic.checksIfGameOver(board)) {
+                // send the user a message and draw the all window ( with the
+                // player's point and current player
                 alertGameOver("Game is over");
-                gameController.draw(logic.getCurrent_Player_().getColor(), logic.getPlayer1Score(),
+                gameController.draw(logic.getCurrentPlayer().getColor(), logic.getPlayer1Score(),
                         logic.getPlayer2Score());
                 return;
             }
+            // if game is not over , just change the current player
             logic.changePlayer();
-
-        } else {
+        } else { // no moves are possible for the current player
+            // send the user a message, change the players and draw the board
             alert("There is No possible Move for you\n The turn change...");
             logic.changePlayer();
-            guiB.draw(logic.findPossibleCells(board, logic.getCurrent_Player_().getType()));
+            guiBoard.draw(logic.findPossibleCells(board, logic.getCurrentPlayer().getType()));
         }
         // logic.changePlayer();
-        currentType = logic.getCurrent_Player_().getType();
+        currentType = logic.getCurrentPlayer().getType();
+        // check if there are not possible moves for the current player
         if (!logic.checksIfMovesArePossible(currentType, board)) {
+            // send the user a message, change the current player and draw the
+            // board
             alert("There is No possible Move for you\n The turn change...");
             logic.changePlayer();
-            guiB.draw(logic.findPossibleCells(board, logic.getCurrent_Player_().getType()));
-
+            guiBoard.draw(logic.findPossibleCells(board, logic.getCurrentPlayer().getType()));
         }
-        gameController.draw(logic.getCurrent_Player_().getColor(), logic.getPlayer1Score(),
-                logic.getPlayer2Score());
+        // draw the all window
+        gameController.draw(logic.getCurrentPlayer().getColor(), logic.getPlayer1Score(), logic.getPlayer2Score());
     }
 }
