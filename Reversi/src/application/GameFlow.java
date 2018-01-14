@@ -2,9 +2,6 @@ package application;
 
 import java.util.List;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-
 public class GameFlow {
     private GuiBoard guiBoard;
     private ReversiGameController gameController;
@@ -19,31 +16,7 @@ public class GameFlow {
         this.gameController = controller;
     }
 
-    /**
-     * this method is called when an error occurred
-     * @param message - to print to the user to alert him with the error
-     */
-    public void alert(String message) {
-        // create an Alert
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setContentText(message);
-        alert.showAndWait();
-        return;
-    }
 
-    /**
-     * this method is called when the game is over
-     * @param message
-     */
-    public void alertGameOver(String message) {
-        // alert the user
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("GAME OVER");
-        alert.setContentText(message);
-        alert.showAndWait();
-        return;
-    }
 
     /**
      * this method checks if point is valid (move). This method gets the list of
@@ -61,7 +34,7 @@ public class GameFlow {
                 return true;
             }
         } // send message to the user to try again
-        alert("Please try again...:)");
+        gameController.alert("Please try again...:)");
         // point is not in the list
         return false;
     }
@@ -97,7 +70,7 @@ public class GameFlow {
             if (logic.checksIfGameOver(board)) {
                 // send the user a message and draw the all window ( with the
                 // player's point and current player
-                alertGameOver("Game is over");
+                this.gameController.alertGameOver("Game is over");
                 gameController.draw(logic.getCurrentPlayer().getColor(), logic.getPlayer1Score(),
                         logic.getPlayer2Score());
                 return;
@@ -106,7 +79,7 @@ public class GameFlow {
             logic.changePlayer();
         } else { // no moves are possible for the current player
             // send the user a message, change the players and draw the board
-            alert("There is No possible Move for you\n The turn change...");
+            gameController.alert("There is No possible Move for you\n The turn change...");
             logic.changePlayer();
             guiBoard.draw(logic.findPossibleCells(board, logic.getCurrentPlayer().getType()));
         }
@@ -116,7 +89,7 @@ public class GameFlow {
         if (!logic.checksIfMovesArePossible(currentType, board)) {
             // send the user a message, change the current player and draw the
             // board
-            alert("There is No possible Move for you\n The turn change...");
+            gameController.alert("There is No possible Move for you\n The turn change...");
             logic.changePlayer();
             guiBoard.draw(logic.findPossibleCells(board, logic.getCurrentPlayer().getType()));
         }

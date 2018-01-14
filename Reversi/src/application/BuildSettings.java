@@ -19,10 +19,7 @@ public class BuildSettings {
      * BuildSettings constructor which sets the game with default settings.
      */
     public BuildSettings() {
-        this.size = 8;
-        this.beginner = 'X';
-        this.firstPlayerColor = "black";
-        this.secondPlayerColor = "white";
+        setDefauldSettings();
         // save the settings to the settings.txt file
         saveToFile();
     }
@@ -63,6 +60,14 @@ public class BuildSettings {
             // TODO Auto-generated catch block
             exception.printStackTrace();
         }
+    }
+
+    public void setDefauldSettings() {
+        this.size = 8;
+        this.beginner = 'X';
+        this.firstPlayerColor = "black";
+        this.secondPlayerColor = "white";
+        saveToFile();
     }
 
     /**

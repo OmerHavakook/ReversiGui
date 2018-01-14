@@ -52,6 +52,7 @@ public class GuiBoard extends GridPane {
         fxmlLoader = new FXMLLoader(getClass().getResource("GuiBoard.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
+
     }
 
     /**

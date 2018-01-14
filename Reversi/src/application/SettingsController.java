@@ -51,6 +51,20 @@ public class SettingsController implements Initializable {
         firstShape.setItems(firstColors);
         secondShape.setItems(firstColors);
         settings = BuildSettings.getInstance();
+        // set values for settings
+        size.setValue(8);
+        size.widthProperty().addListener((observable, oldValue, newValue) -> {
+            double boardNewWidth = newValue.doubleValue() - 120;
+            size.setPrefWidth(boardNewWidth);
+        });
+
+        size.heightProperty().addListener((observable, oldValue, newValue) -> {
+            size.setPrefHeight(newValue.doubleValue());
+        });
+
+        firstPlayerChoose.setValue('X');
+        firstShape.setValue("white");
+        secondShape.setValue("black");
     }
 
     /**

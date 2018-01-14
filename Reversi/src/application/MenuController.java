@@ -45,7 +45,7 @@ public class MenuController implements Initializable {
         try {
             FXMLLoader settingsLoader = new FXMLLoader(getClass().getResource("ReversiGame.fxml"));
             Parent settingsParent = settingsLoader.load();
-            Scene settingsScene = new Scene(settingsParent);
+            Scene settingsScene = new Scene(settingsParent, 800, 600);
             Stage theStage = (Stage) startButton.getScene().getWindow();
             // set the scene with this settingScene (the players scores)
             theStage.setScene(settingsScene);
