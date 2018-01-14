@@ -63,6 +63,8 @@ public class ReversiGameController implements Initializable {
         this.logic = new GameLogic(firstPlayer, secondPlayer, board.getSize(), begginer);
         // listen to property, change screen if needed
         bRoot.setLayoutX(185);
+        // set each text in the right place based on the screen's properties
+        // set width
         baseRoot.widthProperty().addListener((observable, oldValue, newValue) -> {
             guiBoard.setPrefWidth(newValue.doubleValue() * 0.5);
             curPlayer.setLayoutX(newValue.doubleValue() * 0.10);
@@ -72,7 +74,7 @@ public class ReversiGameController implements Initializable {
             guiBoard.draw(logic.findPossibleCells(this.board, begginer));
             draw(firstPlayer.getColor(), 2, 2);
         });
-
+        // set height
         baseRoot.heightProperty().addListener((observable, oldValue, newValue) -> {
             guiBoard.setPrefHeight(newValue.doubleValue() * 2 / 3);
             curPlayer.setLayoutY(newValue.doubleValue() * 1 / 14);

@@ -10,21 +10,31 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class MenuController implements Initializable {
-
+    @FXML
+    private AnchorPane root;
+    @FXML
+    private GridPane pane;
     @FXML
     private ImageView startButton;
-
     @FXML
     private ImageView settingsButton;
-
     @FXML
     private ImageView exitButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // set menu in the middle of the screen
+        root.widthProperty().addListener((observable, oldValue, newValue) -> {
+            pane.setPrefWidth(newValue.doubleValue());
+        });
+        root.heightProperty().addListener((observable, oldValue, newValue) -> {
+            pane.setPrefHeight(newValue.doubleValue());
+        });
         // if the start button was clicked, than call gameSelect
         startButton.setOnMouseClicked((event) -> {
             gameSelect();

@@ -62,6 +62,9 @@ public class BuildSettings {
         }
     }
 
+    /**
+     * this method sets the default settings of the game
+     */
     public void setDefauldSettings() {
         this.size = 8;
         this.beginner = 'X';

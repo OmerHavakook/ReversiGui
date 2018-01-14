@@ -16,8 +16,6 @@ public class GameFlow {
         this.gameController = controller;
     }
 
-
-
     /**
      * this method checks if point is valid (move). This method gets the list of
      * possible points and goes over this list and check if the requested point

@@ -15,9 +15,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class SettingsController implements Initializable {
+    @FXML
+    private AnchorPane root;
+    @FXML
+    private GridPane gridPane;
     @FXML
     private ChoiceBox<Integer> size;
     @FXML
@@ -41,6 +47,13 @@ public class SettingsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // set all boxes, lable and image at the right place
+        root.widthProperty().addListener((observable, oldValue, newValue) -> {
+            gridPane.setPrefWidth(newValue.doubleValue());
+        });
+        root.heightProperty().addListener((observable, oldValue, newValue) -> {
+            gridPane.setPrefHeight(newValue.doubleValue() );
+        });
         // if the user clicked the back Button than set settings
         backButton.setOnMouseClicked((event) -> {
             addChosen();
@@ -85,7 +98,6 @@ public class SettingsController implements Initializable {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
     }
 
     /**

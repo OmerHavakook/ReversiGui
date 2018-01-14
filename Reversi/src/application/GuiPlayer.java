@@ -2,7 +2,7 @@ package application;
 
 import javafx.scene.image.Image;
 
-public class GuiPlayer{
+public class GuiPlayer {
     private char type;
     private int score;
     private String color;
