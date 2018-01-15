@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="Reversi.jnlp">
+  <information>
+    <title>Reversi</title>
+    <vendor>Omer Havakook</vendor>
+    <description>ReversiGui</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="Reversi.jar" size="757909" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="0" height="0" main-class="application.Main"  name="ReversiGui" />
+  <update check="background"/>
+</jnlp>
