@@ -77,7 +77,7 @@ public class ReversiGameController implements Initializable {
             p2Score.setLayoutX(newValue.doubleValue() * 0.65);
 
             guiBoard.draw(logic.findPossibleCells(this.board, begginer));
-            draw(firstPlayer.getColor(), 2, 2);
+            draw(firstPlayer.getColor(), firstPlayer.getColor(), 2, secondPlayer.getColor(), 2);
         });
         // set height
         baseRoot.heightProperty().addListener((observable, oldValue, newValue) -> {
@@ -87,7 +87,7 @@ public class ReversiGameController implements Initializable {
             p2Score.setLayoutY(newValue.doubleValue() * 1 / 14);
 
             guiBoard.draw(logic.findPossibleCells(this.board, begginer));
-            draw(firstPlayer.getColor(), 2, 2);
+            draw(firstPlayer.getColor(), firstPlayer.getColor(), 2, secondPlayer.getColor(), 2);
         });
 
     }
@@ -106,10 +106,10 @@ public class ReversiGameController implements Initializable {
      * @param player1Score - the score of the first player
      * @param player2Score - the score of the second player
      */
-    public void draw(String color, int player1Score, int player2Score) {
+    public void draw(String color, String firstCol, int player1Score, String secondColor, int player2Score) {
         curPlayer.setText("  Current Player: " + color + "\n\n");
-        p1Score.setText("  First Player Score: " + player1Score + "\n\n");
-        p2Score.setText("  Second Player Score: " + player2Score);
+        p1Score.setText("  " + firstCol + " Player Score: " + player1Score + "\n\n");
+        p2Score.setText("  " + secondColor + " Player Score: " + player2Score);
     }
 
     /**
@@ -126,7 +126,6 @@ public class ReversiGameController implements Initializable {
             Stage s = (Stage) baseRoot.getScene().getWindow();
             // set the scene
             s.setScene(scene);
-            settings.setDefauldSettings();
             s.show();
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -152,13 +151,35 @@ public class ReversiGameController implements Initializable {
      * this method is called when the game is over
      * @param message
      */
-    public void alertGameOver(String message) {
+    public void alertGameOver(String message, char type) {
         // alert the user
+        String winner = secondPlayer.getColor() + " is the winner\n";
+        if (firstPlayer.getType() == type) {
+            winner = firstPlayer.getColor() + " is the winner\n";
+        } else if (type == '=') {
+            winner = "This is a tie\n";
+        }
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("GAME OVER");
-        alert.setContentText(message);
+        alert.setContentText(message + "\n" + winner);
         alert.showAndWait();
         backToMenu();
         return;
+    }
+
+    /**
+     * this method returns the first player
+     * @return GuiPlayer
+     */
+    public GuiPlayer getFirstPlayer() {
+        return this.firstPlayer;
+    }
+
+    /**
+     * this method returns the second player
+     * @return GuiPlayer
+     */
+    public GuiPlayer getSecondPlayer() {
+        return this.secondPlayer;
     }
 }

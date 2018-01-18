@@ -71,9 +71,9 @@ public class GameFlow {
             if (logic.checksIfGameOver(board)) {
                 // send the user a message and draw the all window ( with the
                 // player's point and current player
-                this.gameController.alertGameOver("Game is over");
-                gameController.draw(logic.getCurrentPlayer().getColor(), logic.getPlayer1Score(),
-                        logic.getPlayer2Score());
+                gameController.draw(logic.getCurrentPlayer().getColor(), gameController.getFirstPlayer().getColor(),
+                        logic.getPlayer1Score(), gameController.getSecondPlayer().getColor(), logic.getPlayer2Score());
+                this.gameController.alertGameOver("Game is over", logic.returnsWhoWon());
                 return;
             }
             // if game is not over , just change the current player
@@ -95,6 +95,7 @@ public class GameFlow {
             guiBoard.draw(logic.findPossibleCells(board, logic.getCurrentPlayer().getType()));
         }
         // draw the all window
-        gameController.draw(logic.getCurrentPlayer().getColor(), logic.getPlayer1Score(), logic.getPlayer2Score());
+        gameController.draw(logic.getCurrentPlayer().getColor(), gameController.getFirstPlayer().getColor(),
+                logic.getPlayer1Score(), gameController.getSecondPlayer().getColor(), logic.getPlayer2Score());
     }
 }
